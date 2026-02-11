@@ -1,0 +1,98 @@
+opam-version: "2.0"
+name: "aktsp2026"
+version: "dev"
+synopsis: "AKT süvenduspraktikumi 2026 materjalid"
+maintainer: "Simmo Saan"
+authors: "Simmo Saan"
+homepage: "https://github.com/sws-lab/aktsp2026"
+bug-reports: "https://github.com/sws-lab/aktsp2026/issues"
+depends: [
+  "astring" {= "0.8.5"}
+  "base" {= "v0.17.3"}
+  "base-bigarray" {= "base"}
+  "base-bytes" {= "base"}
+  "base-domains" {= "base"}
+  "base-effects" {= "base"}
+  "base-nnp" {= "base"}
+  "base-threads" {= "base"}
+  "base-unix" {= "base"}
+  "camlp-streams" {= "5.0.1"}
+  "chrome-trace" {= "3.21.0"}
+  "cppo" {= "1.8.0"}
+  "csexp" {= "1.5.2"}
+  "dune" {= "3.21.0"}
+  "dune-build-info" {= "3.21.0"}
+  "dune-configurator" {= "3.21.0"}
+  "dune-rpc" {= "3.21.0"}
+  "dyn" {= "3.21.0"}
+  "fiber" {= "3.7.0"}
+  "fs-io" {= "3.21.0"}
+  "jsonrpc" {= "1.25.0"}
+  "lambda-term" {= "3.3.3"}
+  "logs" {= "0.10.0"}
+  "lsp" {= "1.25.0"}
+  "lwt" {= "6.1.0"}
+  "lwt_react" {= "1.2.0"}
+  "merlin-lib" {= "5.6.1-504"}
+  "mew" {= "0.1.0"}
+  "mew_vi" {= "0.5.0"}
+  "ocaml" {= "5.4.0"}
+  "ocaml-base-compiler" {= "5.4.0"}
+  "ocaml-compiler" {= "5.4.0"}
+  "ocaml-compiler-libs" {= "v0.17.0"}
+  "ocaml-config" {= "3"}
+  "ocaml-index" {= "5.6.1-504"}
+  "ocaml-lsp-server" {= "1.25.0"}
+  "ocaml-options-vanilla" {= "1"}
+  "ocaml_intrinsics_kernel" {= "v0.17.1"}
+  "ocamlbuild" {= "0.16.1"}
+  "ocamlc-loc" {= "3.21.0"}
+  "ocamlfind" {= "1.9.8"}
+  "ocamlformat-rpc-lib" {= "0.28.1"}
+  "ocamlgraph" {= "2.2.0"}
+  "ocplib-endian" {= "1.2"}
+  "ordering" {= "3.21.0"}
+  "ounit2" {= "2.2.7"}
+  "pp" {= "2.0.0"}
+  "ppx_derivers" {= "1.2.1"}
+  "ppx_deriving" {= "6.1.1"}
+  "ppx_deriving_hash" {= "0.1.3"}
+  "ppx_yojson_conv_lib" {= "v0.17.0"}
+  "ppxlib" {= "0.37.0"}
+  "qcheck-core" {= "0.91"}
+  "qcheck-ounit" {= "0.91"}
+  "re" {= "1.14.0"}
+  "react" {= "1.2.2"}
+  "result" {= "1.5"}
+  "seq" {= "base"}
+  "sexplib0" {= "v0.17.0"}
+  "spawn" {= "v0.17.0"}
+  "stdlib-shims" {= "0.3.0"}
+  "stdune" {= "3.21.0"}
+  "top-closure" {= "3.21.0"}
+  "topkg" {= "1.1.1"}
+  "trie" {= "1.0.0"}
+  "uchar" {= "0.0.2"}
+  "utop" {= "2.16.0"}
+  "uucp" {= "17.0.0"}
+  "uuseg" {= "17.0.0"}
+  "uutf" {= "1.0.4"}
+  "xdg" {= "3.21.0"}
+  "yojson" {= "3.0.0"}
+  "zed" {= "3.2.3"}
+]
+build: [
+  ["dune" "subst"] {dev}
+  [
+    "dune"
+    "build"
+    "-p"
+    name
+    "-j"
+    jobs
+    "@install"
+    "@runtest" {with-test}
+    "@doc" {with-doc}
+  ]
+]
+dev-repo: "git+https://github.com/sws-lab/aktsp2026.git"
