@@ -8,7 +8,11 @@ module Make (D: sig type t [@@deriving eq] end) =
 struct
   (** Leiab funktsiooni püsipunkti alustades iteratsiooni antud väärtusest. *)
   let rec fp (f: D.t -> D.t) (x: D.t): D.t =
-    failwith "TODO"
+    let x' = f x in
+    if D.equal x x' then
+      x
+    else
+      fp f x'
 end
 
 (** Püsipunktid üle hulkade. *)
