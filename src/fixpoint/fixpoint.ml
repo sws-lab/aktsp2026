@@ -23,15 +23,24 @@ struct
   (** Leiab funktsiooni vähima püsipunkti.
       Kasutada fp funktsiooni. *)
   let lfp (f: D.t -> D.t): D.t =
-    failwith "TODO"
+    fp f D.empty
 
   (** Leiab funktsiooni sulundi, mis sisaldab antud väärtusi.
       Kasutada lfp funktsiooni. *)
   let closure (f: D.t -> D.t) (initial: D.t): D.t =
-    failwith "TODO"
+    lfp (fun x -> D.union initial (f x))
 
   (** Leiab agara distributiivse funktsiooni sulundi, mis sisaldab antud väärtusi.
       Pole vaja kasutada fp/lfp funktsiooni. *)
   let closure_strict_distr (f: D.t -> D.t) (initial: D.t): D.t =
-    failwith "TODO"
+    let rec helper closure frontier =
+      (* if D.is_empty frontier then *)
+      if D.subset frontier closure then
+        closure
+      else
+        (* helper (D.union closure frontier) (f frontier) *)
+        let closure' = D.union closure frontier in
+        helper closure' (D.diff (f frontier) closure')
+    in
+    helper D.empty initial
 end

@@ -19,6 +19,7 @@ let nfa_eps = function
 
 (** Epsilonsammude funktsioon hulgal. *)
 let nfa_eps_set states =
+  (* IntSet.of_list (List.concat_map nfa_eps (IntSet.elements states)) *)
   IntSet.elements states
   |> List.concat_map nfa_eps
   |> IntSet.of_list
