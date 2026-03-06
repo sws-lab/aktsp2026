@@ -1,4 +1,4 @@
-(** Transitiivse sulundi näide Vesali "The Sulund Design Pattern™" slaididelt. *)
+(** Transitiivse sulundi näide slaididelt. *)
 open OUnit2
 open Fixpoint
 

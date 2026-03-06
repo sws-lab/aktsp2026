@@ -1,7 +1,7 @@
 (** Püsipunktid.
 
     Vt. "Introduction to Compiler Design" õpikust, peatükk 1.5.1.
-    Vt. Vesali "The Sulund Design Pattern™" slaide. *)
+    Vt. Slaidid. *)
 
 (** Püsipunktid üle suvalise võrreldava tüübi. *)
 module Make (D: sig type t [@@deriving eq] end) =
