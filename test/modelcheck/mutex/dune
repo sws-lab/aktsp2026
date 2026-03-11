@@ -1,0 +1,4 @@
+(test
+ (name mutex_test)
+ (libraries ounit2 ounittodo modelcheck modelcheck_mutex)
+ (preprocess (pps ppx_deriving.std)))
