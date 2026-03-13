@@ -28,13 +28,36 @@ struct
     flag = false;
   }
 
+  let step1 (s: t): t list =
+    match s.p1 with
+    | P1 ->
+      if s.flag then
+        [s]
+      else
+        (* [{p1 = P2; p2 = s.p2; flag = s.flag}] *)
+        [{s with p1 = P2}]
+    | P2 -> [{s with p1 = P3; flag = true}]
+    | P3 -> [{s with p1 = P4}]
+    | P4 -> [{s with p1 = P5; flag = false}]
+    | P5 -> []
 
+  let step2 (s: t): t list =
+    match s.p2 with
+    | P1 ->
+      if s.flag then
+        [s]
+      else
+        [{s with p2 = P2}]
+    | P2 -> [{s with p2 = P3; flag = true}]
+    | P3 -> [{s with p2 = P4}]
+    | P4 -> [{s with p2 = P5; flag = false}]
+    | P5 -> []
 
   let step (s: t): t list =
-    failwith "TODO"
+    step1 s @ step2 s
 
   let is_error (s: t): bool =
-    failwith "TODO"
+    s.p1 = P3 && s.p2 = P3
 end
 
 (** Petersoni algoritm (https://en.wikipedia.org/wiki/Peterson%27s_algorithm):
@@ -72,13 +95,37 @@ struct
     turn = T1;
   }
 
+  let step1 (s: t): t list =
+    match s.p1 with
+    | P1 -> [{s with p1 = P2; flag1 = true}]
+    | P2 -> [{s with p1 = P3; turn = T2}]
+    | P3 ->
+      if s.flag2 && s.turn = T2 then
+        [s]
+      else
+        [{s with p1 = P4}]
+    | P4 -> [{s with p1 = P5}]
+    | P5 -> [{s with p1 = P6; flag1 = false}]
+    | P6 -> []
 
+  let step2 (s: t): t list =
+    match s.p2 with
+    | P1 -> [{s with p2 = P2; flag2 = true}]
+    | P2 -> [{s with p2 = P3; turn = T1}]
+    | P3 ->
+      if s.flag1 && s.turn = T1 then
+        [s]
+      else
+        [{s with p2 = P4}]
+    | P4 -> [{s with p2 = P5}]
+    | P5 -> [{s with p2 = P6; flag2 = false}]
+    | P6 -> []
 
   let step (s: t): t list =
-    failwith "TODO"
+    step1 s @ step2 s
 
   let is_error (s: t): bool =
-    failwith "TODO"
+    s.p1 = P4 && s.p2 = P4
 end
 
 (** Dekkeri algoritm (https://en.wikipedia.org/wiki/Dekker%27s_algorithm):
