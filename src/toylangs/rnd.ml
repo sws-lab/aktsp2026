@@ -14,7 +14,16 @@ type coin = unit -> bool
 (** Väärtustab avaldise etteantud mündiga.
     NB! Väärtustamise järjekord on oluline. *)
 let rec eval (coin: coin) (e: t): int =
-  failwith "TODO"
+  match e with
+  | Num i -> i
+  | Neg e -> -(eval coin e)
+  (* | Add (e1, e2) -> eval coin e2 + eval coin e1 *)
+  | Add (e1, e2) ->
+    let i1 = eval coin e1 in
+    let i2 = eval coin e2 in
+    i1 + i2
+  (* | Flip (e1, e2) -> if coin () then eval coin e1 else eval coin e2 *)
+  | Flip (e1, e2) -> eval coin (if coin () then e1 else e2)
 
 
 (** Konstrueerib kahe listi otsekorrutise. *)
@@ -31,7 +40,13 @@ let cartesian_map (f: 'a -> 'b -> 'c) (l1: 'a list) (l2: 'b list): 'c list =
     Vihje: List.map.
     Vihje: cartesian_product või cartesian_map. *)
 let rec eval_list (e: t): int list =
-  failwith "TODO"
+  match e with
+  | Num i -> [i]
+  | Neg e -> List.map (fun x -> -x) (eval_list e)
+  (* | Add (e1, e2) -> List.map (fun (x, y) -> x + y) (cartesian_product (eval_list e1) (eval_list e2)) *)
+  (* | Add (e1, e2) -> cartesian_map (fun x y -> x + y) (eval_list e1) (eval_list e2) *)
+  | Add (e1, e2) -> cartesian_map (+) (eval_list e1) (eval_list e2)
+  | Flip (e1, e2) -> eval_list e1 @ eval_list e2
 
 
 module IntSet =
@@ -53,4 +68,9 @@ end
     Vihje: IntSet.map.
     Vihje: IntSet.cartesian_map. *)
 let rec eval_set (e: t): IntSet.t =
-  failwith "TODO"
+  (* IntSet.of_list (eval_list e) *)
+  match e with
+  | Num i -> IntSet.singleton i
+  | Neg e -> IntSet.map (fun x -> -x) (eval_set e)
+  | Add (e1, e2) -> IntSet.cartesian_map (+) (eval_set e1) (eval_set e2)
+  | Flip (e1, e2) -> IntSet.union (eval_set e1) (eval_set e2)
