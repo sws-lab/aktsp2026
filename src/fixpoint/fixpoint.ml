@@ -44,3 +44,17 @@ struct
     in
     helper D.empty initial
 end
+
+(** Püsipunktid üle domeenide. *)
+module MakeDomain (D: Domain.S) =
+struct
+  include Make (D)
+
+  (** Leiab funktsiooni vähima püsipunkti. *)
+  let lfp (f: D.t -> D.t): D.t =
+    fp f D.bot
+
+  (** Leiab funktsiooni sulundi, mis sisaldab antud domeeni elementi. *)
+  let closure (f: D.t -> D.t) (initial: D.t): D.t =
+    lfp (fun x -> D.join initial (f x))
+end
