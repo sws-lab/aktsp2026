@@ -14,6 +14,7 @@
   ocamlgraph
   ppx_deriving
   ppx_deriving_hash
+  z3
   ounit2
   (qcheck-ounit (>= 0.91))
   ocaml-lsp-server
