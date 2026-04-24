@@ -68,5 +68,10 @@ struct
         ED.bot
       else
         failwith "eval_stmt: Error"
-    | _ -> failwith "TODO"
+    | While (c, b) ->
+      let f env' =
+        eval_stmt (eval_guard env' c true) b
+      in
+      let env_loop = EDFP.closure f env in
+      eval_guard env_loop c false
 end
