@@ -114,7 +114,9 @@ struct
     (** Nullable võrrandite paremad pooled.
         Järgi täpselt grammatikat ja ära ise lihtsusta! *)
     let f (nt: V.t) (get: V.t -> D.t): D.t =
-      failwith "TODO"
+      match nt with
+      | A -> (get B && get A && false) || true
+      | B -> (false && get B && false) || (get A && get A)
   end
 
   module FirstSys =
@@ -128,7 +130,9 @@ struct
         Võid eeldada Nullable lahendit.
         Järgi täpselt grammatikat ja ära ise lihtsusta! *)
     let f (nt: V.t) (get: V.t -> D.t): D.t =
-      failwith "TODO"
+      match nt with
+      | A -> D.join (D.join (get B) (D.join (get A) (D.singleton 'a'))) D.empty
+      | B -> D.join (D.singleton 'b') (D.join (get A) (get A))
   end
 
   module FollowSys =
@@ -146,7 +150,18 @@ struct
         Järgi täpselt grammatikat ja ära ise lihtsusta!
         Vihje: D.of_list. *)
     let f (nt: V.t) (get: V.t -> D.t): D.t =
-      failwith "TODO"
+      match nt with
+      | A -> join_list [
+          D.singleton '$';
+          D.singleton 'a';
+          D.of_list ['a'; 'b'];
+          get B;
+          get B;
+        ]
+      | B -> join_list [
+          D.of_list ['a'; 'b'];
+          D.singleton 'c';
+        ]
   end
 end
 
