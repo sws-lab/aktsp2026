@@ -18,6 +18,10 @@ depends: [
   "base-unix" {= "base"}
   "camlp-streams" {= "5.0.1"}
   "chrome-trace" {= "3.21.0"}
+  "conf-c++" {= "1.0"}
+  "conf-gmp" {= "5"}
+  "conf-pkg-config" {= "4"}
+  "conf-python-3" {= "9.0.0"}
   "cppo" {= "1.8.0"}
   "csexp" {= "1.5.2"}
   "dune" {= "3.21.0"}
@@ -79,6 +83,8 @@ depends: [
   "uutf" {= "1.0.4"}
   "xdg" {= "3.21.0"}
   "yojson" {= "3.0.0"}
+  "z3" {= "4.15.2"}
+  "zarith" {= "1.14"}
   "zed" {= "3.2.3"}
 ]
 build: [
