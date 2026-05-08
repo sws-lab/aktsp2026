@@ -8,7 +8,8 @@ end
 
 (** Näited. *)
 
-(** T → R
+(**T' → T$
+    T → R
     T → aTc
     R →
     R → bR
@@ -35,7 +36,9 @@ struct
     (** Nullable võrrandite paremad pooled.
         Järgi täpselt grammatikat ja ära ise lihtsusta! *)
     let f (nt: V.t) (get: V.t -> D.t): D.t =
-      failwith "TODO"
+      match nt with
+      | T -> get R || (false && get T && false)
+      | R -> true || (false && get R)
   end
 
   (** FIRST võrrandisüsteem. *)
@@ -53,7 +56,9 @@ struct
         Vihje: D.singleton.
         Vihje: D.join. *)
     let f (nt: V.t) (get: V.t -> D.t): D.t =
-      failwith "TODO"
+      match nt with
+      | T -> D.join (get R) (D.singleton 'a')
+      | R -> D.join D.empty (D.singleton 'b')
   end
 
   (** FOLLOW võrrandisüsteem. *)
@@ -72,7 +77,15 @@ struct
         Järgi täpselt grammatikat ja ära ise lihtsusta!
         Vihje: join_list. *)
     let f (nt: V.t) (get: V.t -> D.t): D.t =
-      failwith "TODO"
+      match nt with
+      | T -> join_list [
+          D.singleton '$';
+          D.singleton 'c'
+        ]
+      | R -> join_list [
+          get T;
+          get R
+        ]
   end
 end
 
